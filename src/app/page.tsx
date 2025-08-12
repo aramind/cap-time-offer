@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 import Link from "next/link";
 
 export default function Home() {
@@ -50,6 +51,25 @@ export default function Home() {
                   <Button variant="outline" asChild>
                     <Link href="/features">Learn More</Link>
                   </Button>
+                </div>
+              </div>
+              <div className="flex items-center justify-center">
+                <div className="relative w-full max-w-md overflow-hidden rounded-lg shadow-lg  ">
+                  <Image
+                    src="/dashboard-screenshot.jpg"
+                    alt="Dashboard screenshot"
+                    width={600}
+                    height={400}
+                    priority
+                    className="w-full h-auto object-cover"
+                  />
+                  <div className="absolute top-0 left-0 right-0 bg-gradient-to-b from-black/20 to-transparent h-8">
+                    <div className="flex items-center gap-2 px-4 py-2">
+                      <div className="bg-red-500 w-2 h-2 rounded-full" />
+                      <div className="bg-yellow-500 w-2 h-2 rounded-full" />
+                      <div className="bg-green-500 w-2 h-2 rounded-full" />
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
