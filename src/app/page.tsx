@@ -1,5 +1,61 @@
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+
 export default function Home() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20"></div>
+    <div className="flex flex-col min-h-screen ">
+      <header className="px-4 lg:px-6 h-16 flex items-center justify-between ">
+        <Link href="/" className="flex items-center">
+          <span className="text-2xl font-bold">Time Offer</span>
+        </Link>
+        <nav className="flex gap-4 sm:gap-6">
+          <Link
+            href="/features"
+            className="text-sm font-medium hover:underline underline-offset-4"
+          >
+            Features
+          </Link>
+          <Link
+            href="/tutorial"
+            className="text-sm font-medium hover:underline underline-offset-4"
+          >
+            How it works
+          </Link>
+          <Link
+            href="/features"
+            className="text-sm font-medium hover:underline underline-offset-4"
+          >
+            Features
+          </Link>
+        </nav>
+      </header>
+      <main className="flex-1">
+        <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48">
+          <div className="container px-4 md:px-6">
+            <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 xl:grid-cols-2">
+              <div className="flex flex-col justify-center space-y-4">
+                <div className="space-y-2">
+                  <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">
+                    Effortless Time Off Management
+                  </h1>
+                  <p className="max-w-[600px] text-gray-500 md:text-xl dark:text-gray-400">
+                    Streamline your company&apos;s time off requests, approvals,
+                    and tracking all in one place.
+                  </p>
+                </div>
+                <div className="flex flex-col gap-2 min-[400px]:flex-row">
+                  <Button asChild>
+                    <Link href="/sign-up">Get Started</Link>
+                  </Button>
+                  <Button variant="outline" asChild>
+                    <Link href="/features">Learn More</Link>
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
   );
 }
