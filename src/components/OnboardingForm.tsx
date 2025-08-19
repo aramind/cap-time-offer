@@ -15,6 +15,17 @@ import {
 } from "./ui/card";
 import { Label } from "./ui/label";
 import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
+import { Separator } from "@radix-ui/react-separator";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "./ui/form";
+import { Input } from "./ui/input";
 
 const employeeSchema = z.object({
   firstName: z
@@ -195,6 +206,115 @@ const OnboardingForm = ({
               </div>
             </RadioGroup>
           </div>
+          <Separator />
+          {accountType === "employee" ? (
+            <Form {...employeeForm}>
+              <form
+                onSubmit={employeeForm.handleSubmit(handleEmployeeSubmit)}
+                className="space-y-4"
+              >
+                <div className="grid grid-cols-2 gap-4">
+                  <FormField
+                    control={employeeForm.control}
+                    name="firstName"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>First Name</FormLabel>
+                        <FormControl>
+                          <Input {...field} disabled className="bg-gray-100" />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={employeeForm.control}
+                    name="lastName"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Last Name</FormLabel>
+                        <FormControl>
+                          <Input {...field} disabled className="bg-gray-100" />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+                <FormField
+                  control={employeeForm.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Email</FormLabel>
+                      <FormControl>
+                        <Input {...field} disabled className="bg-gray-100" />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={employeeForm.control}
+                  name="department"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Department</FormLabel>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          placeholder="e.g. Engineering, Sales, etc"
+                          className="bg-gray-100"
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={employeeForm.control}
+                  name="invitationCode"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Invitation Code</FormLabel>
+                      {/* <FormControl>
+                        <Input
+                          {...field}
+                          placeholder="Enter the 6-digit code"
+                          className="bg-gray-100"
+                          maxLength={6}
+                          pattern="[0-9]{6}"
+                        />
+                      </FormControl> */}
+                      <FormControl>
+                        <Input
+                          {...field}
+                          placeholder="Enter the 6-digit code"
+                          className="bg-gray-100"
+                          maxLength={6} // prevents typing more than 6 chars
+                          onChange={(e) => {
+                            // Only digits allowed
+                            const digitsOnly = e.target.value.replace(
+                              /\D/g,
+                              ""
+                            );
+                            field.onChange(digitsOnly);
+                          }}
+                        />
+                      </FormControl>
+                      <FormDescription>
+                        Enter the 6-digi invitation code provided by your
+                        company admin .
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </form>
+            </Form>
+          ) : (
+            <>p</>
+          )}
         </div>
       </CardContent>
     </Card>
