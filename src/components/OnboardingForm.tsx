@@ -26,6 +26,8 @@ import {
   FormMessage,
 } from "./ui/form";
 import { Input } from "./ui/input";
+import { Alert, AlertDescription } from "./ui/alert";
+import { Button } from "./ui/button";
 
 const employeeSchema = z.object({
   firstName: z
@@ -310,10 +312,147 @@ const OnboardingForm = ({
                     </FormItem>
                   )}
                 />
+                {error && (
+                  <Alert variant="destructive">
+                    <AlertDescription>{error}</AlertDescription>
+                  </Alert>
+                )}
+                <Button
+                  type="submit"
+                  className="w-full"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? "Processing" : "Complete setup"}
+                </Button>
               </form>
             </Form>
           ) : (
-            <>p</>
+            <Form {...adminForm}>
+              <form
+                onSubmit={adminForm.handleSubmit(handleAdminSubmit)}
+                className="space-y-4"
+              >
+                <div className="space-y-4">
+                  <h3 className="text-md font-medium mb-2">
+                    Personal Information
+                  </h3>
+                  <div className="grid grid-cols-2 gap-4">
+                    <FormField
+                      control={adminForm.control}
+                      name="firstName"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>First Name</FormLabel>
+                          <FormControl>
+                            <Input
+                              {...field}
+                              disabled
+                              className="bg-gray-100"
+                            />
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={adminForm.control}
+                      name="lastName"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Last Name</FormLabel>
+                          <FormControl>
+                            <Input
+                              {...field}
+                              disabled
+                              className="bg-gray-100"
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                  <FormField
+                    control={adminForm.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Email</FormLabel>
+                        <FormControl>
+                          <Input {...field} disabled className="bg-gray-100" />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <Separator />
+                  <div className="space-y-4">
+                    <h3 className="text-md font-medium mb-2">
+                      Company Information
+                    </h3>
+                    <FormField
+                      control={adminForm.control}
+                      name="companyName"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Company Name</FormLabel>
+                          <FormControl>
+                            <Input
+                              {...field}
+                              placeholder="Company Name"
+                              className="bg-gray-100"
+                            />
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={adminForm.control}
+                      name="companyWebsite"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Company Website (optional)</FormLabel>
+                          <FormControl>
+                            <Input
+                              {...field}
+                              placeholder="Company Website"
+                              className="bg-gray-100"
+                            />
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={adminForm.control}
+                      name="companyLogo"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Company Logo (optional)</FormLabel>
+                          <FormControl>
+                            <Input
+                              {...field}
+                              placeholder="Company Logo URL"
+                              className="bg-gray-100"
+                            />
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+                </div>
+                {error && (
+                  <Alert variant="destructive">
+                    <AlertDescription>{error}</AlertDescription>
+                  </Alert>
+                )}
+                <Button
+                  type="submit"
+                  className="w-full"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? "Processing" : "Complete setup"}
+                </Button>
+              </form>
+            </Form>
           )}
         </div>
       </CardContent>
