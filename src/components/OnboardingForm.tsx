@@ -28,6 +28,7 @@ import {
 import { Input } from "./ui/input";
 import { Alert, AlertDescription } from "./ui/alert";
 import { Button } from "./ui/button";
+import { cn } from "@/lib/utils";
 
 const employeeSchema = z.object({
   firstName: z
@@ -188,7 +189,11 @@ const OnboardingForm = ({
                 />
                 <Label
                   htmlFor="employee"
-                  className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover hover:bg-accent hover:text-accent-foreground p-4"
+                  className={cn(
+                    "flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover hover:bg-accent hover:text-accent-foreground p-4",
+                    accountType === "employee" &&
+                      "bg-accent text-accent-foreground"
+                  )}
                 >
                   <span>Employee</span>
                 </Label>
