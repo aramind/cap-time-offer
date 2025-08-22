@@ -29,6 +29,7 @@ import { Input } from "./ui/input";
 import { Alert, AlertDescription } from "./ui/alert";
 import { Button } from "./ui/button";
 import { cn } from "@/lib/utils";
+import { createEmployee } from "@/lib/actions/onboarding";
 
 const employeeSchema = z.object({
   firstName: z
@@ -137,8 +138,23 @@ const OnboardingForm = ({
 
     try {
       // await responser from server action
-    } catch (error) {
+      const response = await createEmployee(
+        data.department || undefined,
+        user.id,
+        data.invitationCode
+      );
+
+      if (response.success) {
+        router.push("/dashboard");
+      }
+    } catch (error: unknown) {
       // setError
+      console.error(`Error creating employee: ${error}`);
+      setError(
+        error instanceof Error ? error.message : "Failed to complete onboarding"
+      );
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
