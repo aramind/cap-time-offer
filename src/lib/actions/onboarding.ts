@@ -69,3 +69,52 @@ export async function createEmployee(
     };
   }
 }
+
+export async function createAdmin(
+  companyName: string,
+  companyWebsite: string,
+  companyLogo: string,
+  clerkId: string
+) {
+  try {
+    const user = await (await clerkClient()).users.getUser(clerkId);
+
+    if (!user || !user.firstName || !user.lastName) {
+      throw new Error("User not found");
+    }
+
+    const company = await prisma.company.create({
+      data: {
+        name: companyName,
+        website: companyWebsite,
+        logo: companyLogo,
+      },
+    });
+
+    await (
+      await clerkClient()
+    ).users.updateUserMetadata(user.id, {
+      publicMetadata: {
+        onboardingCompleted: true,
+        role: "ADMIN",
+        companyId: company.id,
+      },
+    });
+
+    await prisma.user.create({
+      data: {
+        clerkId: user.id,
+        email: user.emailAddresses[0].emailAddress,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        role: "ADMIN",
+        companyId: company.id,
+      },
+    });
+
+    return { success: true };
+  } catch (error) {
+    console.error(error);
+    return { success: false };
+  }
+}

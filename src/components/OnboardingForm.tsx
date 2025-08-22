@@ -29,7 +29,7 @@ import { Input } from "./ui/input";
 import { Alert, AlertDescription } from "./ui/alert";
 import { Button } from "./ui/button";
 import { cn } from "@/lib/utils";
-import { createEmployee } from "@/lib/actions/onboarding";
+import { createAdmin, createEmployee } from "@/lib/actions/onboarding";
 
 const employeeSchema = z.object({
   firstName: z
@@ -145,7 +145,7 @@ const OnboardingForm = ({
       );
 
       if (response.success) {
-        router.push("/dashboard");
+        router.push("/employee");
       }
     } catch (error: unknown) {
       // setError
@@ -167,8 +167,27 @@ const OnboardingForm = ({
 
     try {
       // await responser from server action
+
+      const response = await createAdmin(
+        data.companyName,
+        data.companyWebsite || "",
+        data.companyLogo || "",
+        user.id
+      );
+
+      if (response.success) {
+        router.push("/admin");
+      }
     } catch (error) {
       // setError
+      console.error(`Error creating admin: ${error}`);
+      setError(
+        error instanceof Error
+          ? error.message
+          : "Failed to complete onboarding. Try again."
+      );
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
