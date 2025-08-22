@@ -55,6 +55,8 @@ model User {
   firstName        String
   lastName         String
   role             UserRole         @default(EMPLOYEE)
+  department       String?
+  availableDays    Int              @default(25)
   company          Company?         @relation(fields: [companyId], references: [id])
   companyId        String?
   createdAt        DateTime         @default(now())
