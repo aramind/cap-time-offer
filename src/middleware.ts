@@ -32,6 +32,20 @@ export default clerkMiddleware(async (auth, req: NextRequest) => {
     return NextResponse.redirect(onboardingUrl);
   }
 
+  if (
+    userId &&
+    sessionClaims?.metadata?.onboardingCompleted &&
+    isOnboardingRoute(req)
+  ) {
+    if (sessionClaims?.metadata?.role === "ADMIN") {
+      const adminURL = new URL("/admin", req.url);
+      return NextResponse.redirect(adminURL);
+    } else {
+      const employeeURL = new URL("/employee", req.url);
+      return NextResponse.redirect(employeeURL);
+    }
+  }
+
   if (isAdminRoute(req)) {
     if (sessionClaims?.metadata?.role === "ADMIN") {
       return NextResponse.next();
