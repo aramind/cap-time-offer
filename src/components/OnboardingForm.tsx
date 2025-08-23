@@ -137,7 +137,6 @@ const OnboardingForm = ({
     setError(null);
 
     try {
-      // await responser from server action
       const response = await createEmployee(
         data.department || undefined,
         user.id,
@@ -148,7 +147,6 @@ const OnboardingForm = ({
         router.push("/employee");
       }
     } catch (error: unknown) {
-      // setError
       console.error(`Error creating employee: ${error}`);
       setError(
         error instanceof Error ? error.message : "Failed to complete onboarding"
@@ -179,7 +177,6 @@ const OnboardingForm = ({
         router.push("/admin");
       }
     } catch (error) {
-      // setError
       console.error(`Error creating admin: ${error}`);
       setError(
         error instanceof Error
